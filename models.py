@@ -1,4 +1,5 @@
 import re
+import csv
 
 
 regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
@@ -20,6 +21,14 @@ class Employee:
 
     def check_salary(self, days):
         return self.salary * days
+
+
+    @property
+    def information(self):
+        my_name = __class__.__name__
+        inform = my_name + ' : ' + self.name
+        print(inform)
+        return inform
 
 
     def __str__(self):
@@ -125,4 +134,15 @@ class Candidate:
         self.technologies = technologies
         self.main_skill = main_skill
         self.main_skill_grade = main_skill_grade
+
+
+    @classmethod
+    def new_candidates(self):
+        with open('information.csv', newline='') as csvfile:
+            spamreader = csv.reader(csvfile, delimiter=' ', quotechar='|')
+            for row in spamreader:
+                info = (', '.join(row))
+                print(info)
+        return info
+
 
